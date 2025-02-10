@@ -9,19 +9,23 @@
     <title>lise WCAG 2.2 Guide</title>
   </head>
   <body class="bg-darklise text-white">
-    <div class="sm:absolute top-20 w-1/5 flex flex-col items-center">
+    <div
+      class="md:absolute top-40 md:top-20 w-2/5 md:w-1/5 h-8 flex flex-col items-center"
+    >
       <img src="./assets/lise.svg" alt="Logo of lise GmbH" class="" />
     </div>
     <div
       id="app"
-      class="container sm:max-w-md md:max-w-2xl lg:max-w-4xl relative mx-auto mt-32 px-16"
+      class="container sm:max-w-lg md:max-w-3xl lg:max-w-4xl relative mx-auto mt-32 px-4 sm:px-8 md:px-16"
     >
       <header
-        class="mx-auto my-8 text-white bg-teal-950 p-8 rounded-xl text-left flex"
+        class="mx-auto my-8 text-white bg-teal-950 p-8 rounded-xl text-left flex flex-col md:flex-row"
       >
-        <div class="w-3/4">
-          <h1 class="font-bold text-4xl">WCAG 2.2 Guide</h1>
-          <p class="!text-sm leading-loose mt-4 pr-8">
+        <div class="sm:w-3/4">
+          <h1 class="font-bold text-4xl text-center md:text-left">
+            WCAG 2.2 Guide
+          </h1>
+          <p class="!text-sm leading-loose mt-4 md:pr-8">
             a hitchhikers guide to WCAG by the girls and boys working at lise.
             This document is based on
             <a
@@ -31,19 +35,23 @@
             >
           </p>
         </div>
-        <img src="./assets/wcag.svg" alt="Logo of wcag 2.2 aaa" />
+        <img
+          src="./assets/wcag.svg"
+          class="w-32 my-4 mx-auto"
+          alt="Logo of wcag 2.2 aaa"
+        />
       </header>
 
       <!-- Filter Sidebar -->
 
       <aside
-        class="transition z-50 ease-in-out transform filter w-[300px] mx-auto my-4 text-xs rounded-md px-8 py-4 fixed top-0 right-2 shadow-lg shadow-emerald-800/50 bg-teal-950 opacity-95"
+        class="transition z-50 ease-in-out transform filter w-full md:w-[300px] mx-auto my-4 text-xs rounded-md px-8 py-4 md:fixed top-0 right-2 shadow-lg shadow-emerald-800/50 bg-teal-950 opacity-95"
         :class="{'translate-x-[80%] h-18 overflow-hidden': asideClose}"
       >
         <div class="flex items-center">
           <button
             aria-label="collapse"
-            class="text-lise rounded-sm w-10 h-10 cursor-pointer hover:bg-darklise -ml-4"
+            class="text-lise rounded-sm w-10 h-10 cursor-pointer hover:bg-darklise -ml-4 hidden sm:block mr-8"
             @click="asideClose=!asideClose"
           >
             <svg
@@ -69,7 +77,9 @@
               </g>
             </svg>
           </button>
-          <h2 class="text-base ml-4 opacity-60">Filter the entries</h2>
+          <h2 class="text-base font-bold sm:opacity-60 py-4">
+            Filter the entries
+          </h2>
         </div>
 
         <div class="flex py-4">
