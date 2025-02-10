@@ -1,0 +1,25 @@
+[
+  {
+    "question": "use video in your project?",
+    "name": "video",
+    "default": "true"
+  },
+  { "question": "use audio?", "name": "audio", "default": "true" },
+  { "question": "show text?", "name": "text", "default": "true" },
+  {
+    "question": "plan on using dynamic reloading elements (modals, checkouts, flyouts)?",
+    "name": "dynamic",
+    "default": "true"
+  },
+  {
+    "question": "use forms and validation?",
+    "name": "forms",
+    "default": "true"
+  },
+  {
+    "question": "use sliders or animations?",
+    "name": "animations",
+    "default": "true"
+  },
+  { "question": "use gestures?", "name": "gestures", "default": "true" }
+]

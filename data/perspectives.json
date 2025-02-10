@@ -1,0 +1,28 @@
+[
+  { "name": "show all", "id": "all", "description": "" },
+  {
+    "name": "conceptual perspective",
+    "id": "conceptualPerspective",
+    "description": "This selection only shows you relevant information for creating a concept liek a wireframe. It will only show you information relevant for semantics. It will exclude any WCAG Specifications regarding the coding part."
+  },
+  {
+    "name": "screen design",
+    "id": "screenDesign",
+    "description": "This selection only shows you relevant information for designing a site or components. It will only show you information relevant for design decisions."
+  },
+  {
+    "name": "content creation",
+    "id": "contentCreation",
+    "description": "This selection only shows you relevant information for creating content like writing texts, captions, articles and so on. It will not show you information about technical implementation in any kind."
+  },
+  {
+    "name": "developing components",
+    "id": "developingComponents",
+    "description": "This selection only shows you relevant information for developing a WCAG friendly set of components. It wont show you information for overall semantics or content or design - since it expects these parts to be done"
+  },
+  {
+    "name": "developing site",
+    "id": "developingSite",
+    "description": "This selection only shows you relevant information for developing a site with a already WCAG - friendly set of components. It will only show you information relevant for overall semantics."
+  }
+]
