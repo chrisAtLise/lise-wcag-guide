@@ -1,25 +1,50 @@
 [
   {
-    "question": "use video in your project?",
+    "question": {
+      "en": "Ignore video-only?",
+      "de": "Blende reine Videothemen aus"
+    },
     "name": "video",
     "default": "true"
   },
-  { "question": "use audio?", "name": "audio", "default": "true" },
-  { "question": "show text?", "name": "text", "default": "true" },
   {
-    "question": "plan on using dynamic reloading elements (modals, checkouts, flyouts)?",
-    "name": "dynamic",
+    "question": {
+      "en": "Ignory audio-only?",
+      "de": "Blende reine Audiothemen aus."
+    },
+    "name": "audio",
     "default": "true"
   },
   {
-    "question": "use forms and validation?",
+    "question": {
+      "en": "Ignore forms-only",
+      "de": "Ignoriere reine Formularthemen"
+    },
     "name": "forms",
     "default": "true"
   },
   {
-    "question": "use sliders or animations?",
-    "name": "animations",
+    "question": {
+      "en": "Ignore focus-only?",
+      "de": "Ignoriere Fokussteuerung"
+    },
+    "name": "focus",
     "default": "true"
   },
-  { "question": "use gestures?", "name": "gestures", "default": "true" }
+  {
+    "question": {
+      "en": "Ignore ui-only?",
+      "de": "Ignoriere reine UI Themen"
+    },
+    "name": "ui",
+    "default": "true"
+  },
+  {
+    "question": {
+      "en": "Ignore gestures?",
+      "de": "Ignoriere Gestensteuerung"
+    },
+    "name": "gestures",
+    "default": "true"
+  }
 ]

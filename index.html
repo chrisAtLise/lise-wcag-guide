@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html :lang="lang">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
-    <link rel="stylesheet" href="./style.css" />
+    <script src="./assets/tailwind.js"></script>
+    <!-- <script src="./node_modules/tailwindcss/dist/chunk-AZANAYY2.mjs"></script> -->
+    <!-- <link rel="stylesheet" href="./style.css" /> -->
     <script src="./assets/tailwindstyles.js"></script>
     <title>lise WCAG 2.2 Guide</title>
   </head>
@@ -18,6 +19,20 @@
       id="app"
       class="container sm:max-w-lg md:max-w-3xl lg:max-w-4xl relative mx-auto mt-32 px-4 sm:px-8 md:px-16"
     >
+      <button
+        v-if="lang==='de'"
+        class="mx-auto block underline cursor-pointer text-lise text-xs"
+        @click="lang = 'en'"
+      >
+        switch to english
+      </button>
+      <button
+        v-else
+        class="mx-auto block underline cursor-pointer text-lise text-xs"
+        @click="lang = 'de'"
+      >
+        auf deutsch umschalten
+      </button>
       <header
         class="mx-auto my-8 text-white bg-teal-950 p-8 rounded-xl text-left flex flex-col md:flex-row"
       >
@@ -25,8 +40,18 @@
           <h1 class="font-bold text-4xl text-center md:text-left">
             WCAG 2.2 Guide
           </h1>
-          <p class="!text-sm leading-loose mt-4 md:pr-8">
-            a hitchhikers guide to WCAG by the girls and boys working at lise.
+          <p v-if="lang==='de'" class="!text-sm leading-loose mt-4 md:pr-8">
+            Ein WCAG Reiseführer entwickelt mit Herzblut von den Mädels und
+            Jungs der lise. Diese Dokument basiert auf der
+
+            <a
+              class="underline"
+              href="https://www.w3.org/TR/2024/REC-WCAG22-20241212/"
+              >der WCAG vom 12 December 2024</a
+            >
+          </p>
+          <p v-else class="!text-sm leading-loose mt-4 md:pr-8">
+            A hitchhikers guide to WCAG by the girls and boys working at lise.
             This document is based on
             <a
               class="underline"
@@ -51,7 +76,7 @@
         <div class="flex items-center">
           <button
             aria-label="collapse"
-            class="text-lise rounded-sm w-10 h-10 cursor-pointer hover:bg-darklise -ml-4 hidden sm:block mr-8"
+            class="text-lise rounded-sm w-10 h-10 cursor-pointer hover:bg-darklise -ml-4 hidden md:block mr-8"
             @click="asideClose=!asideClose"
           >
             <svg
@@ -77,7 +102,13 @@
               </g>
             </svg>
           </button>
-          <h2 class="text-base font-bold sm:opacity-60 py-4">
+          <h2
+            v-if="lang==='de'"
+            class="text-base font-bold sm:opacity-60 py-4 md:py-0"
+          >
+            Einträge eingrenzen
+          </h2>
+          <h2 v-else class="text-base font-bold sm:opacity-60 py-4 md:py-0">
             Filter the entries
           </h2>
         </div>
@@ -105,7 +136,10 @@
         </div>
 
         <!-- Tags List -->
-        <label class="font-bold pb-4">Filter Perspective</label>
+        <label v-if="lang==='de'" class="font-bold pb-4"
+          >Filtern nach Rolle</label
+        >
+        <label v-else class="font-bold pb-4">Filter Perspective</label>
         <div class="flex flex wrap">
           <select
             class="bg-darklise p-2 rounded-md w-full mt-2 mb-4"
@@ -113,25 +147,27 @@
             id="perspective"
           >
             <option
-              v-for="perspective in perspectives"
+              v-for="perspective in possiblePerspectives"
               :key="perspective.id"
               :value="perspective.name"
             >
-              {{perspective.name}}
+              {{perspective.name[lang]}}
             </option>
           </select>
         </div>
         <span
           v-if="selectedPerspectiveDescription && selectedPerspectiveDescription.description"
-          >{{selectedPerspectiveDescription.description}}
+          >{{selectedPerspectiveDescription.description[lang]}}
         </span>
-        <label class="font-bold block pt-4">Do you use...</label>
+        <label class="font-bold block pt-4"></label>
         <div
           v-for="filter in filters"
           :key="filter.name"
-          class="flex pt-2 checkbox-container"
+          class="flex pt-2 h-12 checkbox-container"
         >
-          <label class="w-3/4 cursor-pointer">{{filter.question}} </label>
+          <label v-if="filter.question" class="w-3/4 pr-2 cursor-pointer"
+            >{{filter.question[lang]}}
+          </label>
           <button
             class="rounded-full w-[50px] bg-darklise p-1 inline-block h-6 relative cursor-pointer"
             :class="{'bg-lise':selectedTags.includes(filter.name),'bg-darklise':!selectedTags.includes(filter.name)}"
@@ -142,7 +178,10 @@
               :class="{'translate-x-[10px] bg-darklise':selectedTags.includes(filter.name),'-translate-x-[10px] bg-white':!selectedTags.includes(filter.name)}"
             ></span>
           </button>
-          <span class="w-10 h-6 flex justify-end items-center"
+          <span v-if="lang=='de'" class="w-10 h-6 flex justify-end items-center"
+            >{{selectedTags.includes(filter.name)?"Ja":"Nein"}}</span
+          >
+          <span v-else class="w-10 h-6 flex justify-end items-center"
             >{{selectedTags.includes(filter.name)?"Yes":"No"}}</span
           >
 
@@ -150,60 +189,70 @@
         </div>
 
         <label class="mt-5 block text-lg">
-          Applicable entries:
+          <span v-if="lang==='de'"> Angezeigte Einträge: </span>
+          <span v-else> Applicable entries: </span>
           <span class="text-lise">{{ filteredContent.length }}</span>
         </label>
       </aside>
 
       <!-- Filtered Content -->
-      <main v-for="entry in filteredContent" :key="entry.name">
-        <div>
+      <main>
+        <section v-for="entry in filteredContent" :key="entry.name[lang]">
           <div class="relative">
             <component :is="`h${entry.level+1}`" class=""
-              >{{ entry.name }}</component
-            >
-            <div
-              v-if="entry.conformance"
-              class="conformance"
-              v-if="entry.conformance"
-            >
+              >{{ entry.name[lang] }}
+              <button
+                v-if="entry.understanding.length > 5 && showUnderstanding !== entry.name[lang]"
+                class="ml-2 inline h-6 w-6 text-sm leading-none bg-emerald-950 hover:bg-emerald-800 hover:text-lise cursor-pointer rounded-full"
+                aria-label="more"
+                @click="showUnderstanding = entry.name[lang]"
+              >
+                ?
+              </button>
+            </component>
+
+            <div v-if="entry.conformance" class="conformance">
               {{ entry.conformance }}
             </div>
-            <div class="infobox">
-              <div
-                v-if="entry.understanding.length > 5"
-                class="understanding"
-                v-html="entry.understanding"
-              ></div>
-            </div>
+          </div>
+          <div
+            v-if="entry.understanding.length > 5  && showUnderstanding === entry.name[lang]"
+            class="infobox"
+          >
+            <span class="understanding" v-html="entry.understanding"></span>
           </div>
           <template v-for="tag in entry.tags" :key="tag"
-            ><span class="tag" v-if="tag.length > 1">{{tag}}</span></template
+            ><span class="tag" v-if="tag && tag.length > 1"
+              >{{tag}}</span
+            ></template
           >
-          <div v-html="entry.html"></div>
-        </div>
+          <div v-html="entry.content[lang]"></div>
+        </section>
       </main>
     </div>
+    <script src="./node_modules/vue/dist/vue.global.js"></script>
 
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script>
       const { createApp, ref, computed, onMounted, watch } = Vue;
 
       createApp({
         setup() {
+          const lang = ref("en");
+          const showUnderstanding = ref("");
+
           const content = ref([]);
-          const perspectives = ref([]);
+          const possiblePerspectives = ref([]);
           const filters = ref([]);
           onMounted(async () => {
             try {
-              const response = await fetch("./data/wcag22_tag.json");
+              const response = await fetch("./data/wcag22_tag_2502121632.json");
               content.value = await response.json();
-              console.log(content.value);
+              cleanUpTags();
               extractTags(); // Extract tags after loading content
               const responsePerspectives = await fetch(
                 "./data/perspectives.json"
               );
-              perspectives.value = await responsePerspectives.json();
+              possiblePerspectives.value = await responsePerspectives.json();
               const responseFilters = await fetch("./data/filters.json");
               filters.value = await responseFilters.json();
               selectedTags.value = filters.value.map((item) => item.name);
@@ -220,11 +269,14 @@
           const selectedConformanceLevel = ref("AAA");
           const conformanceLevels = ["A", "AA", "AAA"];
 
-          const selectedPerspective = ref("show all");
+          const selectedPerspective = ref({
+            en: "show all",
+            de: "Alle zeigen",
+          });
           const selectedPerspectiveDescription = computed(() => {
             if (!selectedPerspective.value) return null;
             // Use find instead of filter to get a single object
-            return perspectives.value.find(
+            return possiblePerspectives.value.find(
               (perspective) => perspective.name === selectedPerspective.value
             );
           });
@@ -233,12 +285,24 @@
             const allTagsSet = new Set();
             content.value.forEach((entry) => {
               if (entry.tags && Array.isArray(entry.tags)) {
+                // console.log(entry.tags);
                 entry.tags.forEach((tag) =>
-                  tag.length > 1 ? allTagsSet.add(tag) : null
+                  tag && tag.length > 1 ? allTagsSet.add(tag) : null
                 );
               }
             });
             tags.value = Array.from(allTagsSet);
+          };
+          const cleanUpTags = () => {
+            content.value.forEach((entry) => {
+              if (entry.tags && Array.isArray(entry.tags)) {
+                entry.tags = entry.tags.filter((tag) => tag !== "");
+                entry.tags = entry.tags.filter((tag) => tag !== " ");
+                entry.tags = entry.tags.filter((tag) => tag !== "-");
+                entry.tags = entry.tags.filter((tag) => tag !== null);
+                console.log(entry.tags);
+              }
+            });
           };
 
           // Toggle tag selection
@@ -255,52 +319,84 @@
 
           // Compute filtered content
           const filteredContent = computed(() => {
-            return content.value
-              .filter((entry) => {
-                // Always show level 1 and 2 entries
-                if (entry.level == 1) {
+            return (
+              content.value
+                // Filter Conformance
+                .filter((entry) => {
+                  // Always show level 1 and 2 entries
+                  if (entry.level == 1) {
+                    return true;
+                  }
+                  // Filter by conformance level
+                  if (selectedConformanceLevel.value === "A") {
+                    return (
+                      entry.conformance === "A" || entry.conformance === ""
+                    );
+                  } else if (selectedConformanceLevel.value === "AA") {
+                    return (
+                      entry.conformance === "AA" ||
+                      entry.conformance === "A" ||
+                      entry.conformance === ""
+                    );
+                  } else if (selectedConformanceLevel.value === "AAA") {
+                    return true;
+                  }
+
                   return true;
-                }
-                // Filter by conformance level
-                if (selectedConformanceLevel.value === "A") {
-                  return entry.conformance === "A";
-                } else if (selectedConformanceLevel.value === "AA") {
+                })
+                // Filter Perspectives
+                .filter((entry) => {
+                  if (entry.level == 1) {
+                    return true;
+                  }
+
+                  if (
+                    (selectedPerspective.value &&
+                      selectedPerspective.value[lang.value] == "Alle zeigen") ||
+                    (selectedPerspective.value &&
+                      selectedPerspective.value[lang.value] == "show all")
+                  ) {
+                    return true;
+                  }
                   return (
-                    entry.conformance === "AA" || entry.conformance === "A"
+                    entry.perspective &&
+                    entry.perspective.some(
+                      (per) => selectedPerspective.value[lang.value] === per
+                    )
                   );
-                } else if (selectedConformanceLevel.value === "AAA") {
-                  return ["AAA", "AA", "A"].includes(entry.conformance);
-                }
+                })
+                .filter((entry) => {
+                  if (!selectedTags.value || selectedTags.value.length === 0) {
+                    return true; // Keine Tags ausgewählt → Zeige alle Einträge
+                  }
 
-                return true;
-              })
-              .filter((entry) => {
-                // If no tags are selected, show all
-                if (selectedTags.value.length === 0) return true;
-                if (entry.level == 1) {
-                  return true;
-                }
-                // Only show entries that match at least one selected tag
-                return (
-                  entry.tags &&
-                  entry.tags.some((tag) => selectedTags.value.includes(tag))
-                );
-              })
-              .filter((entry) => {
-                if (entry.level == 1) {
-                  return true;
-                }
-                if (selectedPerspective.value == "show all") return true;
-                return (
-                  entry.tags &&
-                  entry.tags.some((tag) => selectedPerspective.value === tag)
-                );
-              });
+                  if (!entry.tags || entry.tags.length === 0) {
+                    return true; // Einträge ohne Tags bleiben erhalten
+                  }
+
+                  // Prüfen, ob ALLE Tags des Eintrags in selectedTags enthalten sind
+                  const allTagsInSelected = entry.tags.every((tag) =>
+                    selectedTags.value.includes(tag)
+                  );
+
+                  // Falls alle Tags in selectedTags enthalten sind, den Eintrag ignorieren (nicht anzeigen)
+                  return !allTagsInSelected;
+                })
+            );
           });
 
-          watch(selectedConformanceLevel, (newValue) => {
-            console.log("Filter changed to:", newValue);
-          });
+          // watch(selectedConformanceLevel, (newValue) => {
+          //   console.log("Filter changed to:", newValue);
+          // });
+
+          // schließe alle aus in denen einer der selectedTags drin vor kommt, aber ncihta anderes
+          // für jeden selected tag überprüfe ob der Eintrag
+
+          // ignoriere jeden eintrag der nur 1 tag hat und dieser ist einer der liste in selectedTags
+
+          // ignoriere jeden eintrag der 2 tags hat und diese sind beide in der liste in selected tags
+          // ignoriere jeden eintrag der 3 tags hat und diese sind alle 3 in der liste in selected tags
+          // ignoriere jeden eintrag der 4 tags hat und diese sind alle 4 in der liste in selected tags
 
           return {
             content,
@@ -312,10 +408,12 @@
             resetTags,
             asideClose,
             conformanceLevels,
-            perspectives,
+            possiblePerspectives,
             selectedPerspective,
             selectedPerspectiveDescription,
             filters,
+            lang,
+            showUnderstanding,
           };
         },
       }).mount("#app");

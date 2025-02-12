@@ -15,7 +15,7 @@ styleTag.innerHTML = `
         @apply flex flex-wrap items-center;
       }
       .understanding {
-        @apply bg-emerald-950 opacity-40 hover:opacity-90 pb-1 px-4  rounded-md my-2;
+        @apply bg-emerald-950 opacity-90 hover:opacity-100 pb-1 px-4  rounded-md my-2;
       }
 
       .understanding a {

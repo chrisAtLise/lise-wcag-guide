@@ -1,0 +1,52 @@
+[
+  {
+    "question": {
+      "en": "Do you use video in your project?",
+      "de": "Nutzt du Videos in deinem Projekt?"
+    },
+    "name": "video",
+    "default": "true"
+  },
+  {
+    "question": { "en": "Do you use audio?", "de": "Nutzt du Ton im Projekt" },
+    "name": "audio",
+    "default": "true"
+  },
+  {
+    "question": { "en": "Do you show text?", "de": "Nutzt du Text?" },
+    "name": "text",
+    "default": "true"
+  },
+  {
+    "question": {
+      "en": "Do you plan on using dynamic reloading elements (modals, checkouts, flyouts)?",
+      "de": "Planst du dynamische Elemente zu nutzen (modals, checkouts, flyouts)?"
+    },
+    "name": "dynamic",
+    "default": "true"
+  },
+  {
+    "question": {
+      "en": "Do you use forms and validation?",
+      "de": "Nutzt du Formulare und validierung?"
+    },
+    "name": "forms",
+    "default": "true"
+  },
+  {
+    "question": {
+      "en": "Do you use sliders or animations?",
+      "de": "Nutzt du Slider oder Animationen?"
+    },
+    "name": "animations",
+    "default": "true"
+  },
+  {
+    "question": {
+      "en": "Do you use gestures?",
+      "de": "Nutzt du Gestensteuerung?"
+    },
+    "name": "gestures",
+    "default": "true"
+  }
+]
