@@ -5,6 +5,13 @@ styleTag.innerHTML = `
         --color-darklise: #004d4a;
         --color-lise: #d6ee00;
       }
+      body {
+        background: #004d4a;
+        color:#fff;
+      }
+      #app {
+        @apply container sm:max-w-lg md:max-w-3xl lg:max-w-4xl relative mx-auto mt-32 px-4 sm:px-8 md:px-16;
+      }
       a {
         @apply underline hover:text-white;
       }
@@ -33,6 +40,9 @@ styleTag.innerHTML = `
         font-weight: 200;
         line-height: 1.6;
       }
+      main h1 {
+        @apply text-5xl mt-16 font-light text-teal-100
+      }
       main h2 {
         @apply text-3xl mt-8 font-bold text-teal-100;
       }
@@ -41,6 +51,9 @@ styleTag.innerHTML = `
       }
       main h4 {
         @apply text-xl mb-2 mt-8 font-bold text-teal-100;
+      }
+      main ul {
+        @apply space-y-1 text-teal-500 list-disc list-inside my-8;      
       }
       .toggle {
         @apply inline-block w-4 h-4 rounded-full  transition transform;

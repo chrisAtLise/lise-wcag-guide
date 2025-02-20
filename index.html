@@ -3,24 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- <script src="./assets/tailwind.js"></script> -->
-    <!-- <script src="./node_modules/tailwindcss/dist/chunk-AZANAYY2.mjs"></script> -->
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
-
-    <!-- <link rel="stylesheet" href="./style.css" /> -->
     <script src="./assets/tailwindstyles.js"></script>
     <title>lise WCAG 2.2 Guide</title>
   </head>
-  <body class="bg-darklise text-white">
+  <body class="">
     <div
       class="md:absolute top-40 md:top-20 w-2/5 md:w-1/5 h-8 flex flex-col items-center"
     >
       <img src="./assets/lise.svg" alt="Logo of lise GmbH" class="" />
     </div>
-    <div
-      id="app"
-      class="container sm:max-w-lg md:max-w-3xl lg:max-w-4xl relative mx-auto mt-32 px-4 sm:px-8 md:px-16"
-    >
+    <div id="app">
       <button
         v-if="lang==='de'"
         class="mx-auto block underline cursor-pointer text-lise text-xs"
@@ -35,6 +28,12 @@
       >
         auf deutsch umschalten
       </button>
+      <a
+        class="mx-auto block underline cursor-pointer text-lise text-xs"
+        href="bfsg-relevanz.html"
+      >
+        BFSG-Relevanz
+      </a>
       <header
         class="mx-auto my-8 text-white bg-teal-950 p-8 rounded-xl text-left flex flex-col md:flex-row"
       >
@@ -115,15 +114,15 @@
           </h2>
         </div>
 
-        <div class="flex py-4">
-          <div class="w-1/4">
+        <div class="flex flex-col py-4">
+          <div class="w-full pb-4">
             <label class="font-bold">Conformance level</label>
           </div>
-          <div class="w-3/4 flex justify-between pl-8">
+          <div class="w-full flex justify-between items-center">
             <label
               v-for="level in conformanceLevels"
               :key="level"
-              class="p-1 flex flex-col items-center w-12 border border-transparent"
+              class="px-1 py-4 flex flex-col items-center justify-around w-20 border border-transparent cursor-pointer"
               :class="{' border-white rounded-md text-lise':selectedConformanceLevel===level}"
             >
               <input
@@ -132,7 +131,52 @@
                 :value="level"
               />
 
-              <span class="font-bold text-lg pt-2">{{level}}</span>
+              <!-- <span class="font-bold text-lg pt-2">{{level}}</span> -->
+              <div
+                v-if="level==='AAA'"
+                class="font-bold flex flex-wrap text-md pt-2 justify-center"
+              >
+                <div
+                  class="w-5 h-6 mr-1 bg-darklise text-center flex items-center justify-center rounded-tl-md"
+                >
+                  A
+                </div>
+                <div
+                  class="w-8 h-6 bg-darklise text-center flex items-center justify-center rounded-tr-md"
+                >
+                  AA
+                </div>
+                <div
+                  class="w-14 mt-1 h-6 bg-darklise text-center flex items-center justify-center rounded-b-md"
+                >
+                  AAA
+                </div>
+              </div>
+              <div
+                v-if="level==='AA'"
+                class="font-bold flex flex-wrap text-md pt-2 justify-center"
+              >
+                <div
+                  class="w-14 h-6 bg-darklise text-center flex items-center justify-center rounded-t-md"
+                >
+                  A
+                </div>
+                <div
+                  class="w-14 h-6 bg-darklise text-center flex items-center mt-1 justify-center rounded-b-md"
+                >
+                  AA
+                </div>
+              </div>
+              <div
+                v-if="level ==='A'"
+                class="font-bold flex flex-wrap text-md pt-2 justify-center"
+              >
+                <div
+                  class="w-14 h-14 bg-darklise text-center flex items-center justify-center rounded-md"
+                >
+                  A
+                </div>
+              </div>
             </label>
           </div>
         </div>
@@ -240,17 +284,22 @@
 
       createApp({
         setup() {
+          // Translation Prop
           const lang = ref("en");
+          // Filter Flyout
+          const asideClose = ref(false);
+          // Understanding Accordeon
           const showUnderstanding = ref("");
 
           const content = ref([]);
           const possiblePerspectives = ref([]);
           const filters = ref([]);
+
           onMounted(async () => {
             try {
               const response = await fetch("./data/wcag22_tag_2502121632.json");
               content.value = await response.json();
-              cleanUpTags();
+              cleanUpTagsInContent();
               extractTags(); // Extract tags after loading content
               const responsePerspectives = await fetch(
                 "./data/perspectives.json"
@@ -263,12 +312,57 @@
               console.error("Error loading JSON:", error);
             }
           });
-          const asideClose = ref(false);
+
+          // -----------------------------------------------Tags
           const selectedTags = ref([]);
           const resetTags = () => {
             selectedTags.value = [];
           };
           const tags = ref([]);
+          // Extract all tags from content an write it into the data prop
+          const extractTags = () => {
+            const allTagsSet = new Set();
+            content.value.forEach((entry) => {
+              if (entry.tags && Array.isArray(entry.tags)) {
+                entry.tags.forEach((tag) => {
+                  if (isValidTag(tag)) {
+                    allTagsSet.add(tag);
+                    console.log(tag);
+                  }
+                });
+              }
+            });
+            // console.log(allTagsSet);
+            tags.value = Array.from(allTagsSet);
+          };
+
+          const isValidTag = (tag) => {
+            return tag && tag.length > 1;
+          };
+
+          const cleanUpTagsInContent = () => {
+            content.value.forEach((entry) => {
+              if (entry.tags && Array.isArray(entry.tags)) {
+                entry.tags = entry.tags.filter((tag) => tag !== "");
+                entry.tags = entry.tags.filter((tag) => tag !== " ");
+                entry.tags = entry.tags.filter((tag) => tag !== "-");
+                entry.tags = entry.tags.filter((tag) => tag !== null);
+                console.log("tag", entry.tags);
+              }
+            });
+          };
+          // Toggle tag selection
+          const toggleTag = (tag) => {
+            if (selectedTags.value.includes(tag)) {
+              selectedTags.value = selectedTags.value.filter((t) => t !== tag);
+            } else {
+              selectedTags.value.push(tag);
+            }
+          };
+
+          // Compute available tags dynamically
+          const allTags = computed(() => tags.value);
+
           const selectedConformanceLevel = ref("AAA");
           const conformanceLevels = ["A", "AA", "AAA"];
 
@@ -283,42 +377,6 @@
               (perspective) => perspective.name === selectedPerspective.value
             );
           });
-          // Extract unique tags
-          const extractTags = () => {
-            const allTagsSet = new Set();
-            content.value.forEach((entry) => {
-              if (entry.tags && Array.isArray(entry.tags)) {
-                // console.log(entry.tags);
-                entry.tags.forEach((tag) =>
-                  tag && tag.length > 1 ? allTagsSet.add(tag) : null
-                );
-              }
-            });
-            tags.value = Array.from(allTagsSet);
-          };
-          const cleanUpTags = () => {
-            content.value.forEach((entry) => {
-              if (entry.tags && Array.isArray(entry.tags)) {
-                entry.tags = entry.tags.filter((tag) => tag !== "");
-                entry.tags = entry.tags.filter((tag) => tag !== " ");
-                entry.tags = entry.tags.filter((tag) => tag !== "-");
-                entry.tags = entry.tags.filter((tag) => tag !== null);
-                console.log(entry.tags);
-              }
-            });
-          };
-
-          // Toggle tag selection
-          const toggleTag = (tag) => {
-            if (selectedTags.value.includes(tag)) {
-              selectedTags.value = selectedTags.value.filter((t) => t !== tag);
-            } else {
-              selectedTags.value.push(tag);
-            }
-          };
-
-          // Compute available tags dynamically
-          const allTags = computed(() => tags.value);
 
           // Compute filtered content
           const filteredContent = computed(() => {
@@ -387,19 +445,6 @@
                 })
             );
           });
-
-          // watch(selectedConformanceLevel, (newValue) => {
-          //   console.log("Filter changed to:", newValue);
-          // });
-
-          // schließe alle aus in denen einer der selectedTags drin vor kommt, aber ncihta anderes
-          // für jeden selected tag überprüfe ob der Eintrag
-
-          // ignoriere jeden eintrag der nur 1 tag hat und dieser ist einer der liste in selectedTags
-
-          // ignoriere jeden eintrag der 2 tags hat und diese sind beide in der liste in selected tags
-          // ignoriere jeden eintrag der 3 tags hat und diese sind alle 3 in der liste in selected tags
-          // ignoriere jeden eintrag der 4 tags hat und diese sind alle 4 in der liste in selected tags
 
           return {
             content,
