@@ -53,10 +53,16 @@ styleTag.innerHTML = `
         @apply text-xl mb-2 mt-8 font-bold text-teal-100;
       }
       main ul {
-        @apply space-y-1 text-teal-500 list-disc list-inside my-8;      
+        @apply space-y-1 text-teal-500 list-disc list-outside my-8 pl-4;      
+      }
+      main ul li{
+        @apply text-white list-disc  my-2 text-base pl-4 font-light;      
       }
       .toggle {
         @apply inline-block w-4 h-4 rounded-full  transition transform;
+      }
+      .navButton {
+        @apply py-3 px-4 block flex text-center font-bold items-center no-underline hover:underline cursor-pointer rounded-md text-xs bg-teal-700 hover:bg-lise transform transition-all hover:-translate-y-0.5 text-lise hover:text-darklise text-xs shadow-[0_4px_4px_rgba(0,0,0,0.25)];
       }
 `;
 document.head.appendChild(styleTag);

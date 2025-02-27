@@ -6,7 +6,7 @@
   },
   {
     "name": { "en": "conceptual perspective", "de": "Konzeption" },
-    "id": "conceptualPerspective",
+    "id": "conceptual perspective",
     "description": {
       "en": "This selection only shows you relevant information for creating a concept liek a wireframe. It will only show you information relevant for semantics. It will exclude any WCAG Specifications regarding the coding part.",
       "de": "Diese Auswahl zeigt Ihnen nur relevante Informationen zum Erstellen eines Konzepts wie eines Wireframes. Es werden Ihnen nur Informationen angezeigt, die für die Semantik relevant sind. Alle WCAG-Spezifikationen in Bezug auf den Codierungsteil werden ausgeschlossen."
@@ -14,7 +14,7 @@
   },
   {
     "name": { "en": "screen design", "de": "Screen-Design" },
-    "id": "screenDesign",
+    "id": "screen design",
     "description": {
       "en": "This selection only shows you relevant information for designing a site or components. It will only show you information relevant for design decisions.",
       "de": "Diese Auswahl zeigt Ihnen nur relevante Informationen für die Gestaltung einer Site oder von Komponenten. Es werden Ihnen nur Informationen angezeigt, die für Designentscheidungen relevant sind."
@@ -22,7 +22,7 @@
   },
   {
     "name": { "en": "content creation", "de": "Content erstellen" },
-    "id": "contentCreation",
+    "id": "content creation",
     "description": {
       "en": "This selection only shows you relevant information for creating content like writing texts, captions, articles and so on. It will not show you information about technical implementation in any kind.",
       "de": "In dieser Auswahl werden Ihnen nur relevante Informationen zur Inhaltserstellung angezeigt, wie z. B. das Verfassen von Texten, Bildunterschriften, Artikeln usw. Informationen zur technischen Umsetzung jeglicher Art werden Ihnen nicht angezeigt."
@@ -30,7 +30,7 @@
   },
   {
     "name": { "en": "developing components", "de": "Komponenten-Entwicklung" },
-    "id": "developingComponents",
+    "id": "developing components",
     "description": {
       "en": "This selection only shows you relevant information for developing a WCAG friendly set of components. It wont show you information for overall semantics or content or design - since it expects these parts to be done.",
       "de": "Diese Auswahl zeigt Ihnen nur relevante Informationen für die Entwicklung eines WCAG-freundlichen Komponentensatzes. Sie zeigt Ihnen keine Informationen zur allgemeinen Semantik oder zum Inhalt oder Design, da diese Teile bereits fertig sind."
@@ -38,7 +38,7 @@
   },
   {
     "name": { "en": "developing site", "de": "Site-Entwicklung" },
-    "id": "developingSite",
+    "id": "developing site",
     "description": {
       "en": "This selection only shows you relevant information for developing a site with a already WCAG - friendly set of components. It will only show you information relevant for overall semantics.",
       "de": "Diese Auswahl zeigt Ihnen nur relevante Informationen für die Entwicklung einer Site mit einem bereits WCAG-freundlichen Komponentensatz. Es werden Ihnen nur Informationen angezeigt, die für die Gesamtsemantik relevant sind."

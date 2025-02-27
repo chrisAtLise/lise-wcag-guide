@@ -7,66 +7,74 @@
     <script src="./assets/tailwindstyles.js"></script>
     <title>lise WCAG 2.2 Guide</title>
   </head>
-  <body class="absolute">
-    <a
-      class="mx-auto absolute top-4 left-4 block underline cursor-pointer text-lise text-xs"
-      href="bfsg-relevanz.html"
-    >
-      Ist mein Projekt betroffen?
-    </a>
+  <body class="relative">
     <div
       class="md:absolute top-40 md:top-20 w-2/5 md:w-1/5 h-8 flex flex-col items-center"
     >
       <img src="./assets/lise.svg" alt="Logo of lise GmbH" class="" />
     </div>
     <div id="app">
-      <button
-        v-if="lang==='de'"
-        class="mx-auto block underline cursor-pointer text-lise text-xs"
-        @click="lang = 'en'"
-      >
-        switch to english
-      </button>
-      <button
-        v-else
-        class="mx-auto block underline cursor-pointer text-lise text-xs"
-        @click="lang = 'de'"
-      >
-        auf deutsch umschalten
-      </button>
-
       <header
-        class="mx-auto my-8 text-white bg-teal-950 p-8 rounded-xl text-left flex flex-col md:flex-row"
+        class="mx-auto my-8 text-white bg-teal-950 p-8 rounded-xl text-left flex flex-col"
       >
-        <div class="sm:w-3/4">
-          <h1 class="font-bold text-4xl text-center md:text-left">
-            WCAG 2.2 Guide
-          </h1>
-          <p v-if="lang==='de'" class="!text-sm leading-loose mt-4 md:pr-8">
-            Ein WCAG Reiseführer entwickelt mit Herzblut von den Mädels und
-            Jungs der lise. Diese Dokument basiert auf der
+        <div class="w-full flex flex-col md:flex-row">
+          <div class="sm:w-3/4">
+            <h1 class="font-bold text-4xl text-center md:text-left">
+              WCAG 2.2 Guide
+            </h1>
+            <p v-if="lang==='de'" class="!text-sm leading-loose mt-4 md:pr-8">
+              Ein WCAG Reiseführer entwickelt mit Herzblut von den Mädels und
+              Jungs der lise. Diese Dokument basiert auf der
 
-            <a
-              class="underline"
-              href="https://www.w3.org/TR/2024/REC-WCAG22-20241212/"
-              >der WCAG vom 12 December 2024</a
-            >
-          </p>
-          <p v-else class="!text-sm leading-loose mt-4 md:pr-8">
-            A hitchhikers guide to WCAG by the girls and boys working at lise.
-            This document is based on
-            <a
-              class="underline"
-              href="https://www.w3.org/TR/2024/REC-WCAG22-20241212/"
-              >the WCAG from 12 December 2024</a
-            >
-          </p>
+              <a
+                class="underline"
+                href="https://www.w3.org/TR/2024/REC-WCAG22-20241212/"
+                >der WCAG vom 12 December 2024</a
+              >
+            </p>
+            <p v-else class="!text-sm leading-loose mt-4 md:pr-8">
+              A hitchhikers guide to WCAG by the girls and boys working at lise.
+              This document is based on
+              <a
+                class="underline"
+                href="https://www.w3.org/TR/2024/REC-WCAG22-20241212/"
+                >the WCAG from 12 December 2024</a
+              >
+            </p>
+          </div>
+          <img
+            src="./assets/wcag.svg"
+            class="w-32 my-4 mx-auto"
+            alt="Logo of wcag 2.2 aaa"
+          />
         </div>
-        <img
-          src="./assets/wcag.svg"
-          class="w-32 my-4 mx-auto"
-          alt="Logo of wcag 2.2 aaa"
-        />
+        <nav class="w-full flex flex-col md:flex-row pt-8">
+          <ul class="flex flex-row space-x-2">
+            <li>
+              <a class="navButton" href="bfsg-relevanz.html">
+                Ist mein Projekt betroffen?
+              </a>
+            </li>
+            <li>
+              <a class="navButton" href="bfsg-relevanz.html">
+                Tools & Plugins in der Lise
+              </a>
+            </li>
+            <li>
+              <a class="navButton" href="bfsg-relevanz.html">
+                Community Of Practice BFSG
+              </a>
+            </li>
+            <li>
+              <a v-if="lang==='de'" class="navButton" @click="lang = 'en'">
+                switch to english
+              </a>
+              <a v-else class="navButton" @click="lang = 'de'">
+                auf deutsch umschalten
+              </a>
+            </li>
+          </ul>
+        </nav>
       </header>
 
       <!-- Filter Sidebar -->
@@ -196,7 +204,7 @@
             <option
               v-for="perspective in possiblePerspectives"
               :key="perspective.id"
-              :value="perspective.name"
+              :value="perspective.id"
             >
               {{perspective.name[lang]}}
             </option>
@@ -273,7 +281,18 @@
               >{{tag}}</span
             ></template
           >
-          <div v-html="entry.content[lang]"></div>
+          <div
+            v-if="entry.easyLanguage && entry.easyLanguage[lang]"
+            class="px-4 py-4 my-2 bg-teal-800 rounded-md"
+            v-html="entry.easyLanguage[lang]"
+          ></div>
+          <details v-if="entry.easyLanguage[lang]!==''">
+            <summary class="underline cursor-pointer">
+              WCAG Spezifikation
+            </summary>
+            <div v-html="entry.content[lang]"></div>
+          </details>
+          <div v-else v-html="entry.content[lang]"></div>
         </section>
       </main>
     </div>
@@ -286,7 +305,7 @@
       createApp({
         setup() {
           // Translation Prop
-          const lang = ref("en");
+          const lang = ref("de");
           // Filter Flyout
           const asideClose = ref(false);
           // Understanding Accordeon
@@ -298,7 +317,7 @@
 
           onMounted(async () => {
             try {
-              const response = await fetch("./data/wcag22_tag_2502121632.json");
+              const response = await fetch("./data/wcag22_tag_2502271317.json");
               content.value = await response.json();
               cleanUpTagsInContent();
               extractTags(); // Extract tags after loading content
@@ -367,15 +386,12 @@
           const selectedConformanceLevel = ref("AAA");
           const conformanceLevels = ["A", "AA", "AAA"];
 
-          const selectedPerspective = ref({
-            en: "show all",
-            de: "Alle zeigen",
-          });
+          const selectedPerspective = ref("all");
           const selectedPerspectiveDescription = computed(() => {
             if (!selectedPerspective.value) return null;
             // Use find instead of filter to get a single object
             return possiblePerspectives.value.find(
-              (perspective) => perspective.name === selectedPerspective.value
+              (perspective) => perspective.id === selectedPerspective.value
             );
           });
 
@@ -413,17 +429,15 @@
                   }
 
                   if (
-                    (selectedPerspective.value &&
-                      selectedPerspective.value[lang.value] == "Alle zeigen") ||
-                    (selectedPerspective.value &&
-                      selectedPerspective.value[lang.value] == "show all")
+                    selectedPerspective.value &&
+                    selectedPerspective.value == "all"
                   ) {
                     return true;
                   }
                   return (
                     entry.perspective &&
                     entry.perspective.some(
-                      (per) => selectedPerspective.value[lang.value] === per
+                      (per) => selectedPerspective.value === per
                     )
                   );
                 })
