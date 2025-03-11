@@ -1,18 +1,21 @@
 # Ist mein Projekte vom BFSG betroffen?
-&nbsp;
-&nbsp;
+<br>
+<br>
 Es kommt darauf an, wie die Juristen sagen! 
-&nbsp;
-&nbsp;
+<br>
+<br>
+
 Das BFSG nennt Kriterien, wann ein Produkt oder eine Dienstleistung betroffen sind. Diese sind für juristische Laien teils mehr und teils weniger klar verständlich. Wir können dir daher in einigen Fällen keine klare Antwort geben. In diesen Fällen solltest du den Kunden auf diese Unklarheit ansprechen, damit er z.B. bei seiner Rechtsabteilung eine Einschätzung anfragen kann.
-&nbsp;
+<br>
+<br>
 Damit du schnell zu einer Einschätzung kommen kannst, haben wir eine Entscheidungsgrafik gebaut. Damit kannst du anhand weniger Fragen eine erste Einschätzung bekommen, ob dein Projekt wahrscheinlich betroffen ist oder nicht.
-&nbsp;
-&nbsp;
+<br>
+<br>
 [Zur Entscheidungsgrafik in Miro](https://miro.com/app/board/uXjVLg25Osw=/?share_link_id=75484238492)
-&nbsp;
-&nbsp;
-&nbsp;
+<br>
+<br>
+<br>
+<br>
 
 Hier noch einige Beispiele von der IHK München zur Einschätzung:
 - Ein Hersteller von Ventilatoren - gleich welcher Größe - ist vom Gesetz nicht
