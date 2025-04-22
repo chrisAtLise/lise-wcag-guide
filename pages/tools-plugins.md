@@ -1,5 +1,6 @@
-# Platzhalter
+# Tools & Plugins für Devs
+Es gibt IDE Plugins und Tools, die helfen Software barrierefrei zu gestalten bzw. den Ist-Zustand zu erfassen.
 <br>
-Hier folgen Inhalte
+[Gesammelt auf Miro](https://miro.com/app/board/uXjVL5Q93eo=/?moveToWidget=3458764610250645285&cot=14)
 <br>
 <br>
