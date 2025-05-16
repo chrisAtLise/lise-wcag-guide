@@ -38,3 +38,6 @@ Einsatz einer Kombination von Tools: Die Verwendung unterschiedlicher Tools wird
 - Accessibility Insights
 - [IBM Equal Access Accessibility Checker](https://chromewebstore.google.com/detail/ibm-equal-access-accessib/lkcagbfjnkomcinoddgooolagloogehp)
  
+## Weitere Tools
+
+Weitere Tools, Plugins und gewonnene Erkenntnisse findet ihr auf unserem [CoP Miro](https://miro.com/app/board/uXjVL5Q93eo=/?moveToWidget=3458764614483065402&cot=14).
